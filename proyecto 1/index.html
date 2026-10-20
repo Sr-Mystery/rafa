@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffe6ec">
+  <title>Una pregunta para ti 💌</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: #69394a;
+      background: #fff1f4;
+      font-synthesis: none;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      padding: 28px 16px;
+      background:
+        radial-gradient(circle at 12% 16%, #ffd3df 0 2px, transparent 3px),
+        radial-gradient(circle at 86% 72%, #ffd3df 0 2px, transparent 3px),
+        linear-gradient(145deg, #fff8f8, #ffe5ec);
+      background-size: 48px 48px, 62px 62px, auto;
+    }
+
+    .card {
+      width: min(100%, 470px);
+      padding: clamp(22px, 6vw, 38px);
+      border: 1px solid #ffffffcc;
+      border-radius: 30px;
+      background: #fffaf9eF;
+      box-shadow: 0 20px 60px #b84d7020;
+      text-align: center;
+      animation: arrive 700ms ease-out both;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: #c06c82;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .photo-frame {
+      width: min(100%, 280px);
+      aspect-ratio: 9 / 16;
+      margin: 0 auto 24px;
+      border: 7px solid white;
+      border-radius: 22px;
+      background: #ffe8ed;
+      box-shadow: 0 9px 24px #93445b20;
+    }
+
+    .photo-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 0;
+      color: #a44362;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.1rem, 9vw, 3rem);
+      line-height: 1.08;
+    }
+
+    .note {
+      margin: 12px 0 24px;
+      color: #966a76;
+      font-size: 1rem;
+    }
+
+    .buttons {
+      position: relative;
+      display: flex;
+      min-height: 58px;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 auto 24px;
+    }
+
+    button {
+      min-width: 112px;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .yes {
+      color: white;
+      background: linear-gradient(135deg, #ef7896, #da557b);
+      box-shadow: 0 8px 18px #d94d762e;
+    }
+
+    .yes:hover {
+      box-shadow: 0 11px 24px #d94d7644;
+    }
+
+    .no {
+      z-index: 1;
+      color: #a25870;
+      background: #f9e3e9;
+      box-shadow: 0 5px 12px #b64a6717;
+    }
+
+    .music {
+      padding-top: 20px;
+      border-top: 1px solid #f3dce2;
+    }
+
+    .music p {
+      margin: 0 0 10px;
+      color: #a06e7b;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .music audio {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      accent-color: #da557b;
+    }
+
+    .music-status {
+      min-height: 1.25em;
+      margin-top: 8px !important;
+      font-size: 0.8rem !important;
+    }
+
+    .music-start {
+      min-width: 0;
+      margin-top: 8px;
+      padding: 9px 18px;
+      color: #a25870;
+      background: #f9e3e9;
+    }
+
+    .answer {
+      display: none;
+      padding: 14px 4px 22px;
+      animation: arrive 450ms ease-out both;
+    }
+
+    .answer.is-visible {
+      display: block;
+    }
+
+    .answer .big-heart {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 3.6rem;
+      animation: heartbeat 900ms ease-in-out infinite;
+    }
+
+    .answer h1 {
+      font-size: clamp(2rem, 8vw, 2.7rem);
+    }
+
+    .answer p {
+      margin: 14px 0 0;
+      color: #875264;
+      font-size: 1.12rem;
+      line-height: 1.6;
+    }
+
+    .answer .kiss {
+      margin-top: 16px;
+      color: #bd5875;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .footer {
+      margin: 20px 0 0;
+      color: #bd8997;
+      font-size: 0.78rem;
+    }
+
+    @media (max-height: 650px) and (min-width: 600px) {
+      body {
+        place-items: start center;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      .card {
+        padding: 20px 28px;
+      }
+
+      .eyebrow {
+        margin-bottom: 10px;
+      }
+
+      .photo-frame {
+        width: min(100%, 220px);
+        height: min(48svh, 220px);
+        aspect-ratio: auto;
+        margin-bottom: 14px;
+      }
+
+      .note {
+        margin-bottom: 16px;
+      }
+
+      .buttons {
+        margin-bottom: 16px;
+      }
+
+      .music {
+        padding-top: 12px;
+      }
+
+      .footer {
+        margin-top: 12px;
+      }
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      18% { transform: scale(1.12); }
+      34% { transform: scale(1); }
+      52% { transform: scale(1.08); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <p class="eyebrow">Tengo algo que preguntarte</p>
+
+    <div class="photo-frame">
+      <img
+        src="https://i.pinimg.com/736x/af/7c/34/af7c342ab32f66ee65f18d91bc66edfb.jpg"
+        alt="Imagen compartida desde Pinterest"
+        fetchpriority="high">
+    </div>
+
+    <section id="question">
+      <h1>¿Quieres ser mi novia?</h1>
+      <p class="note">Prometo hacerte sonreír mucho 💗</p>
+      <div class="buttons" id="buttons">
+        <button class="yes" id="yesButton" type="button">¡Sí, quiero!</button>
+        <button class="no" id="noButton" type="button">No</button>
+      </div>
+    </section>
+
+    <section class="answer" id="answer" aria-live="polite">
+      <span class="big-heart" aria-hidden="true">💖</span>
+      <h1>¡Lo sabía!</h1>
+      <p>Me debes un gran beso cuando nos veamos...</p>
+      <p class="kiss">¡Me lo das! 😘</p>
+    </section>
+
+    <div class="music">
+      <audio id="song" controls autoplay preload="auto" aria-label="Luma de Esperon">
+        <source src="Esperón%20-%20Luma.mp3" type="audio/mpeg">
+        Tu navegador no puede reproducir este archivo de audio.
+      </audio>
+      <p class="music-status" id="musicStatus" aria-live="polite"></p>
+      <button class="music-start" id="musicStartButton" type="button" hidden>Reproducir música 🎵</button>
+    </div>
+
+    <p class="footer">Hecho con mucho cariño 💌</p>
+  </main>
+
+  <script>
+    const buttons = document.getElementById("buttons");
+    const noButton = document.getElementById("noButton");
+    const yesButton = document.getElementById("yesButton");
+    const question = document.getElementById("question");
+    const answer = document.getElementById("answer");
+    const song = document.getElementById("song");
+    const musicStatus = document.getElementById("musicStatus");
+    const musicStartButton = document.getElementById("musicStartButton");
+
+    function startSong() {
+      if (!song.paused) return;
+
+      song.play().then(() => {
+        musicStatus.textContent = "";
+        musicStartButton.hidden = true;
+      }).catch((error) => {
+        if (error.name === "NotAllowedError") {
+          musicStatus.textContent = "Tu navegador bloqueó el inicio automático. Toca el botón para poner la música.";
+          musicStartButton.hidden = false;
+          return;
+        }
+
+        musicStatus.textContent = "No se pudo reproducir la canción. Revisa que el archivo MP3 esté junto a la página.";
+        console.error("No se pudo reproducir el archivo de música.", error);
+      });
+    }
+
+    song.addEventListener("error", () => {
+      musicStatus.textContent = "No se encontró el archivo MP3 junto a la página.";
+    });
+    musicStartButton.addEventListener("click", startSong);
+    document.addEventListener("pointerdown", startSong);
+    document.addEventListener("keydown", startSong);
+    startSong();
+
+    function moveNoButton() {
+      const area = buttons.getBoundingClientRect();
+      const button = noButton.getBoundingClientRect();
+      const maxX = Math.max(0, area.width - button.width);
+      const maxY = Math.max(0, area.height - button.height);
+      const nextX = Math.random() * maxX;
+      const nextY = Math.random() * maxY;
+
+      noButton.style.position = "absolute";
+      noButton.style.left = `${nextX}px`;
+      noButton.style.top = `${nextY}px`;
+    }
+
+    noButton.addEventListener("pointerenter", moveNoButton);
+    noButton.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+    noButton.addEventListener("focus", moveNoButton);
+    noButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    yesButton.addEventListener("click", () => {
+      startSong();
+      question.hidden = true;
+      answer.classList.add("is-visible");
+    });
+  </script>
+</body>
+</html>
